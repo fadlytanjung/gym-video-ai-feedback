@@ -12,40 +12,29 @@ This FastAPI service lets you upload a squat video 📹 and returns live, coach-
 
 ```
 app/
-│
 ├── core/                   # Configuration & OpenAI/Gemini clients
 │   ├── config.py           
 │   └── ...                 
-│
 ├── db/                     
 │   └── data.py             # `STATIC_TIPS` list (your RAG corpus)
-│
 ├── helpers/                
-│   └── langchain.py        # Unified RAG + chat streaming helper  
-│
+│   └── langchain.py        # Unified RAG + chat streaming helper
 ├── routers/                
-│   ├── ai.py               # `/ai/chat` endpoint  
+│   ├── ai.py               # `/ai/chat` endpoint
 │   └── video.py            # `/video/feedback` endpoint  
-│
 ├── services/               
 │   ├── context.py          # FAISS index & retrieval logic  
 │   ├── memory.py           # (optional) session memory helpers  
 │   └── video.py            # MediaPipe pose detection & angle computation  
-│
 ├── schemas.py              # Pydantic models for requests  
 └── main.py                 # FastAPI app setup & CORS configuration  
-
 public/                     # Example videos  
 ├── sample-video.mp4        
-└── not-gym-video.mp4       
-
-frontend/                   # Next.js React integration  
-├── components/             # Your `ChatInput`, `ChatHeader`, etc.  
-└── pages/ai.tsx            # Consumes `/ai/chat` SSE endpoint  
-
+└── not-gym-video.mp4
 .env                        # Environment variables  
 requirements.txt            # Python dependencies  
-README.md                   # This file  
+README.md                   # This file
+```
 
 ## ⚙️ Setup & Installation
 
