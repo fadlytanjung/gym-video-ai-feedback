@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+opencv-python
+mediapipe
+openai
+faiss-cpu
+numpy
+python-multipart
+langchain-community
+langchain-openai
