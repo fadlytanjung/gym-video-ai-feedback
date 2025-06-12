@@ -1,27 +1,31 @@
 from typing import AsyncGenerator, List, Dict, Optional
 from anyio import create_task_group, create_memory_object_stream
 from anyio.to_thread import run_sync
+from anyio import create_task_group, create_memory_object_stream, WouldBlock
 from app.core.config import openai_client as client
 from app.db.data     import STATIC_TIPS
 from app.core.config import get_embeddings
 from langchain_openai import OpenAIEmbeddings
-import faiss
 import numpy as np
+import faiss
+import time
 
 class StreamHelper:
-    """
-    Wrap any blocking or sync streaming call into an async generator
-    yielding pure text chunks.
-    """
     @staticmethod
-    async def wrap_blocking_stream(fn, *args, **kwargs) -> AsyncGenerator[str, None]:
-        send_chan, recv_chan = create_memory_object_stream[str](max_buffer_size=10)
+    async def wrap_blocking_stream(fn, *args, **kwargs):
+        send_chan, recv_chan = create_memory_object_stream[str](max_buffer_size=1000)
 
         def blocking_runner():
             try:
                 for chunk in fn(*args, **kwargs):
-                    if chunk:
-                        send_chan.send_nowait(chunk)
+                    if not chunk:
+                        continue
+                    while True:
+                        try:
+                            send_chan.send_nowait(chunk)
+                            break
+                        except WouldBlock:
+                            time.sleep(0.01)
             finally:
                 send_chan.close()
 
