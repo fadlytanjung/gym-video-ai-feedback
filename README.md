@@ -5,7 +5,8 @@ This FastAPI service lets you upload a squat video 📹 and returns live, coach-
 
 ## System Architechture
 
-![system-architecture](https://github.com/user-attachments/assets/3a566332-9bbf-4370-aec6-3cb7a399c5e2)
+![system-architechture](https://github.com/user-attachments/assets/f7c9dc05-8758-4b45-aca6-c806e9873d7d)
+
 
 
 ## 📂 Folder Structure
